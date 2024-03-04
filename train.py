@@ -19,10 +19,10 @@ def train(epoch):
     for batch_index, (image,label,_) in enumerate(trainDataLoader):        
         image = image.to(device)
         label = label.to(device) 
-        label = label / 9
+        #label = label / 9
         Opmimizer.zero_grad()
         score1, cly_map = model(image)
-        score2 = cly_map.mean(axis = (1,2,3))
+        score2 = cly_map.mean(axis = (1,2,3)) * 9
         loss1 = loss_function(score1,label)
         loss2 = loss_function(score2,label)
         loss = 0.9*loss1 + 0.1*loss2
@@ -44,7 +44,7 @@ def evaluation():
     for (image, label, _) in testDataLoader:
         image = image.to(device)
         label = label.to(device)
-        label = label / 9
+        #label = label / 9
         with torch.no_grad():
             score, _= model(image)
             all_scores += score.tolist()
