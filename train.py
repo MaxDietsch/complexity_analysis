@@ -23,9 +23,6 @@ def train(epoch):
         Opmimizer.zero_grad()
         score1, cly_map = model(image)
         score2 = cly_map.mean(axis = (1,2,3))
-        print(score1)
-        print(label)
-        break
         loss1 = loss_function(score1,label)
         loss2 = loss_function(score2,label)
         loss = 0.9*loss1 + 0.1*loss2
