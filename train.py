@@ -13,6 +13,9 @@ from ICNet import ICNet
 
 def train(epoch):
     model.train()
+    loss1_sum = 0
+    loss2_sum = 0
+    loss_tot = 0
     for batch_index, (image,label,_) in enumerate(trainDataLoader):        
         image = image.to(device)
         label = label.to(device)       
@@ -27,15 +30,14 @@ def train(epoch):
         if epoch <= args.warm:
             Warmup_scheduler.step()
 
-        if (batch_index+1) % (len(trainDataLoader) // 3) == 0:
-            print('Training Epoch: {epoch} [{trained_samples}/{total_samples}]\tloss: {:0.4f}\tLR: {:0.6f}'.format(
-                loss.item(),
-                Opmimizer.param_groups[0]['lr'],
-                epoch=epoch,
-                trained_samples=batch_index * args.batch_size + len(image),
-                total_samples=len(trainDataLoader.dataset)
-            ))
+        loss1_sum += loss1
+        loss2_sum += loss2
+        loss_tot += loss
+    
+    print(f'Epoch: {epoch} \t Total Loss: {loss_tot} \t Loss1: {loss1_sum} \t Loss2: {loss2_sum}')
+    print('\n')
 
+        
 
 def evaluation():
     model.eval()
@@ -70,8 +72,8 @@ if __name__ == "__main__":
 ])
   
     trainDataset = ic_dataset(
-        txt_path ="./IC9600/train.txt",
-        img_path = "./IC9600/images/",
+        txt_path ="../dataset_default/meta/train_min_min.txt",
+        img_path = "train",
         transform = trainTransform
     )
 
@@ -83,8 +85,8 @@ if __name__ == "__main__":
                              )
 
     testDataset = ic_dataset(
-        txt_path= "./IC9600/test.txt",
-        img_path = "./IC9600/images/",
+        txt_path= "../dataset_default/meta/val.txt",
+        img_path = "val",
         transform=testTransform
     )
     
@@ -116,8 +118,8 @@ if __name__ == "__main__":
         train(epoch)
         if epoch > args.warm:
             Scheduler.step(epoch)
-        evaluation()
-        torch.save(model.state_dict(), os.path.join(args.ck_save_dir,'ck_{}.pth'.format(epoch)))
+        #evaluation()
+        #torch.save(model.state_dict(), os.path.join(args.ck_save_dir,'ck_{}.pth'.format(epoch)))
 
     
 
