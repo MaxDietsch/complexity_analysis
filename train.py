@@ -18,7 +18,8 @@ def train(epoch):
     loss_tot = 0
     for batch_index, (image,label,_) in enumerate(trainDataLoader):        
         image = image.to(device)
-        label = label.to(device)       
+        label = label.to(device) 
+        label = label/9
         Opmimizer.zero_grad()
         score1, cly_map = model(image)
         score2 = cly_map.mean(axis = (1,2,3))
@@ -30,8 +31,6 @@ def train(epoch):
         loss = 0.9*loss1 + 0.1*loss2
         loss.backward()
         Opmimizer.step()
-        if epoch <= args.warm:
-            Warmup_scheduler.step()
 
         loss1_sum += loss1
         loss2_sum += loss2
@@ -111,14 +110,10 @@ if __name__ == "__main__":
     Opmimizer = optim.SGD(params, lr =args.lr,momentum=0.9,weight_decay=args.weight_decay)
     Scheduler = optim.lr_scheduler.MultiStepLR(Opmimizer,milestones=args.milestone,gamma = args.lr_decay_rate)
     iter_per_epoch = len(trainDataLoader)
-    if args.warm > 0:
-        Warmup_scheduler = WarmUpLR(Opmimizer,iter_per_epoch*args.warm)
     
     # running
     for epoch in range(1, args.epoch+1):
         train(epoch)
-        if epoch > args.warm:
-            Scheduler.step()
         #evaluation()
         #torch.save(model.state_dict(), os.path.join(args.ck_save_dir,'ck_{}.pth'.format(epoch)))
 
