@@ -148,7 +148,7 @@ class ICNet(nn.Module):
         score_feature = self.to_score_f_slam(self.to_score_f(x_cat))
         score_feature = self.avgpool(score_feature)
         score_feature = score_feature.squeeze()
-        score = self.head(score_feature) * 9 
+        score = self.head(score_feature) 
         score = score.squeeze()
     
         return score,cly_map
