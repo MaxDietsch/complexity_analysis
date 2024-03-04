@@ -35,7 +35,6 @@ def train(epoch):
         loss_tot += loss
     
     print(f'Epoch: {epoch} \t Total Loss: {loss_tot:.4f} \t Loss1: {loss1_sum:.4f} \t Loss2: {loss2_sum:.4f}')
-    print('\n')
 
         
 
@@ -116,7 +115,7 @@ if __name__ == "__main__":
     for epoch in range(1, args.epoch+1):
         train(epoch)
         if epoch > args.warm:
-            Scheduler.step(epoch)
+            Scheduler.step()
         #evaluation()
         #torch.save(model.state_dict(), os.path.join(args.ck_save_dir,'ck_{}.pth'.format(epoch)))
 
