@@ -73,7 +73,7 @@ if __name__ == "__main__":
   
     trainDataset = ic_dataset(
         txt_path ="../dataset_default/meta/train_min_min.txt",
-        img_path = "train",
+        img_path = "",
         transform = trainTransform
     )
 
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
     testDataset = ic_dataset(
         txt_path= "../dataset_default/meta/val.txt",
-        img_path = "val",
+        img_path = "",
         transform=testTransform
     )
     
