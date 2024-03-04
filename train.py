@@ -69,11 +69,10 @@ if __name__ == "__main__":
 ])
   
     trainDataset = ic_dataset(
-        txt_path ="../dataset_default/meta/train_min_min.txt",
+        txt_path ="../dataset_default/meta/train.txt",
         img_path = "",
         transform = trainTransform
     )
-
     
     trainDataLoader = DataLoader(trainDataset,
                              batch_size=args.batch_size,
@@ -111,7 +110,7 @@ if __name__ == "__main__":
     # running
     for epoch in range(1, args.epoch+1):
         train(epoch)
-        #evaluation()
+        evaluation()
         #torch.save(model.state_dict(), os.path.join(args.ck_save_dir,'ck_{}.pth'.format(epoch)))
 
     
