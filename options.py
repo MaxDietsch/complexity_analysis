@@ -8,7 +8,7 @@ parser.add_argument('--lr_decay_rate',type = float,default=0.2, help='lr decay o
 parser.add_argument('--milestone',type = list,default=[10,20], help = 'perform lr decay in each milestone')
 
 
-parser.add_argument('--batch_size',type=int, default=64, help='batch size for dataloader')
+parser.add_argument('--batch_size',type=int, default=32, help='batch size for dataloader')
 parser.add_argument('--num_workers',type=int,default=8, help = 'num of worker for dataloader')
 parser.add_argument('--epoch',type=int,default=30, help='total epoch of training')
 parser.add_argument('--image_size',type = int ,default= 512, help = 'input size of model')
