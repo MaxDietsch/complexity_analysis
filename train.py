@@ -34,7 +34,7 @@ def train(epoch):
         loss2_sum += loss2
         loss_tot += loss
     
-    print(f'Epoch: {epoch} \t Total Loss: {loss_tot} \t Loss1: {loss1_sum} \t Loss2: {loss2_sum}')
+    print(f'Epoch: {epoch} \t Total Loss: {loss_tot:.4f} \t Loss1: {loss1_sum:.4f} \t Loss2: {loss2_sum:.4f}')
     print('\n')
 
         
@@ -60,7 +60,6 @@ if __name__ == "__main__":
     
     trainTransform = transforms.Compose([
     transforms.Resize((args.image_size, args.image_size)),
-    transforms.RandomHorizontalFlip(),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
