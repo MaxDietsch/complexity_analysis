@@ -90,11 +90,9 @@ class ICNet(nn.Module):
         
         ## detail branch
         self.b1_1 = nn.Sequential(*list(resnet18Pretrained1.children())[:5])  
-        print(list(resnet18Pretrained1.children())[:5])
         self.b1_1_slam = slam(32)
     
         self.b1_2 = list(resnet18Pretrained1.children())[5]
-        print(list(resnet18Pretrained1.children())[5])
         self.b1_2_slam = slam(32)
 
         ## context branch
@@ -105,9 +103,11 @@ class ICNet(nn.Module):
         self.b2_2_slam = slam(32)
     
         self.b2_3 = list(resnet18Pretrained2.children())[6]
+        print(list(resnet18Pretrained2.children())[6])
         self.b2_3_slam = slam(16)
         
         self.b2_4 = list(resnet18Pretrained2.children())[7]
+        print(list(resnet18Pretrained2.children())[7])
         self.b2_4_slam = slam(8)
 
         ## upsample
