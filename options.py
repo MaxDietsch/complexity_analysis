@@ -5,7 +5,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--lr', type=float, default=0.05, help='initial learning rate')
 parser.add_argument('--weight_decay', type=float, default=1e-3, help='weight decay of optimizer')
 parser.add_argument('--lr_decay_rate',type = float,default=0.2, help='lr decay of optimizer')
-parser.add_argument('--milestone',type = list,default=[10,20], help = 'perform lr decay in each milestone')
+parser.add_argument('--milestone',type = list,default=[10, 20], help = 'perform lr decay in each milestone')
 
 
 parser.add_argument('--batch_size',type=int, default=32, help='batch size for dataloader')

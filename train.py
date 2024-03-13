@@ -60,13 +60,13 @@ def evaluation():
 if __name__ == "__main__":
     
     trainTransform = transforms.Compose([
-    transforms.Resize((args.image_size, args.image_size)),
+    transforms.Resize((args.image_size, args.image_size), interpolation = InterpolationMode.BICUBIC),
     transforms.ToTensor(),
     transforms.Normalize(mean=[173.10, 175.12, 177.00], std=[94.64, 89.89, 89.64])
     ])
 
     valTransform = transforms.Compose([
-    transforms.Resize((args.image_size, args.image_size)),
+    transforms.Resize((args.image_size, args.image_size), interpolation = InterpolationMode.BICUBIC),
     transforms.ToTensor(),
     transforms.Normalize(mean=[173.10, 175.12, 177.00], std=[94.64, 89.89, 89.64])
     ])
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     
     valDataLoader = DataLoader(valDataset,
                             batch_size=args.batch_size,
-                            num_workers=args.num_workers,
+                               num_workers=args.num_workers,
                             shuffle=False
                             )
     if not os.path.exists(args.ck_save_dir):
