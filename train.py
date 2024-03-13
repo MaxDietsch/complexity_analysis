@@ -51,10 +51,11 @@ def evaluation():
             score = score.unsqueeze(dim = 1)
 
             all_scores += list(torch.split(score, 1, dim = 0))
-            print(all_scores)
             all_labels += list(torch.split(label, 1, dim = 0))
+    
+    torch.stack(all_scores)
+    torch.stack(all_labels)
             
-
     info = evaInfo(score = score, label = label)
     print(info + '\n')
 
