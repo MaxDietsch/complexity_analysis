@@ -5,6 +5,8 @@ from PIL import Image
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
+import numpy as np
+
 class ic_dataset(Dataset):
     def __init__(self, txt_path, img_path,  transform=None):
         super(ic_dataset, self).__init__()
@@ -32,7 +34,7 @@ class ic_dataset(Dataset):
         imgName, imgLabel= self.img_info_list[index]
         oriImgPath = os.path.join(self.img_path, imgName)
         img = Image.open(oriImgPath).convert("RGB")
-        print(torch.tensor(img))
+        print(np.array(img))
         img = self.transform(img)
         label = torch.tensor(float(imgLabel))
         return img,label,imgName
