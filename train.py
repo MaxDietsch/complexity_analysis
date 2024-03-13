@@ -61,13 +61,13 @@ def evaluation():
 if __name__ == "__main__":
     
     trainTransform = transforms.Compose([
-    transforms.Resize((args.image_size, args.image_size), interpolation = F.InterpolationMode.BICUBIC),
+    transforms.Resize((args.image_size, args.image_size)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[173.10, 175.12, 177.00], std=[94.64, 89.89, 89.64])
     ])
 
     valTransform = transforms.Compose([
-    transforms.Resize((args.image_size, args.image_size), interpolation = F.InterpolationMode.BICUBIC),
+    transforms.Resize((args.image_size, args.image_size)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[173.10, 175.12, 177.00], std=[94.64, 89.89, 89.64])
     ])
