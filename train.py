@@ -41,7 +41,7 @@ def train(epoch):
         
 
 def evaluation():
-    model.eval()
+    #model.eval()
     all_scores = []
     all_labels = []
     for (image, label, _) in trainDataLoader:
