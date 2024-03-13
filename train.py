@@ -55,7 +55,9 @@ def evaluation():
 
             all_scores.append(torch.split(score, dim = 0))
             all_labels.append(torch.split(score, dim = 0))
-                info = evaInfo(score = score, label = label)
+            
+
+    info = evaInfo(score = score, label = label)
     print(info + '\n')
 
 
