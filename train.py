@@ -42,16 +42,12 @@ def evaluation():
     model.eval()
     all_scores = []
     all_labels = []
-    for (image, label, _) in valDataLoader:
+    for (image, label, _) in trainDataLoader:
         image = image.to(device)
         label = label.to(device)
         label = label / 9
         with torch.no_grad():
             score, _= model(image)
-            print(score)
-            print('----' * 10)
-            print(label)
-            print('####' * 10)
             all_scores += [score]
             all_labels += [label]
     score = torch.stack(all_scores[ : -1 ], dim = 0)
