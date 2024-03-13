@@ -50,9 +50,9 @@ def evaluation():
             score, _= model(image)
             score = score.unsqueeze(dim = 1)
 
-            all_scores.append(*(torch.split(score, 1, dim = 0)))
+            all_scores += list(torch.split(score, 1, dim = 0))
             print(all_scores)
-            all_labels.append(torch.split(score, dim = 0))
+            all_labels += list(torch.split(label, 1, dim = 0))
             
 
     info = evaInfo(score = score, label = label)
