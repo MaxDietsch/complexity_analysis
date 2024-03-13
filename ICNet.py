@@ -25,8 +25,14 @@ class slam(nn.Module):
 
 
         x = x.view(n,c,-1)
+        print(x.shape)
         x = self.linear(x)
+        print(x.shape)
         x = x.unsqueeze(dim =3)
+        print(x) 
+        print(x.shape) 
+        print(x.expand_as(feature))
+        print(x.expand_as(feature).shape)
         out = x.expand_as(feature)*feature
 
         return out
@@ -103,11 +109,9 @@ class ICNet(nn.Module):
         self.b2_2_slam = slam(32)
     
         self.b2_3 = list(resnet18Pretrained2.children())[6]
-        print(list(resnet18Pretrained2.children())[6])
         self.b2_3_slam = slam(16)
         
         self.b2_4 = list(resnet18Pretrained2.children())[7]
-        print(list(resnet18Pretrained2.children())[7])
         self.b2_4_slam = slam(8)
 
         ## upsample
