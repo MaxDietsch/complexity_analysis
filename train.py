@@ -48,6 +48,7 @@ def evaluation():
         label = label / 9
         with torch.no_grad():
             score, _= model(image)
+            score = score.unsqueeze(dim = 1)
             print(score.shape)
             print(score) 
             print(score.split(score, dim = 0))
