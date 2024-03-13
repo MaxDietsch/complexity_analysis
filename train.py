@@ -50,7 +50,7 @@ def evaluation():
             all_scores += score
             all_labels += label
     score = torch.stack(all_scores, dim = 0)
-    print(score.shape)
+    label = torch.stack(all_labels, dim = 0)
     info = evaInfo(score = score, label = label)
     print(info + '\n')
 
