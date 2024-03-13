@@ -23,6 +23,7 @@ def train(epoch):
         label = label / 9
         Opmimizer.zero_grad()
         score1, cly_map = model(image)
+        print(score1)
         score2 = cly_map.mean(axis = (1,2,3))
         loss1 = loss_function(score1,label)
         loss2 = loss_function(score2,label)
@@ -48,7 +49,6 @@ def evaluation():
         label = label / 9
         with torch.no_grad():
             score, _= model(image)
-            print(score)
 
             all_scores += list(torch.split(score, 1, dim = 0))
             all_labels += list(torch.split(label, 1, dim = 0))
@@ -56,8 +56,8 @@ def evaluation():
     all_scores = torch.stack(all_scores)
     all_labels = torch.stack(all_labels)
 
-    print(all_scores)
-    print(all_labels)
+    #print(all_scores)
+    #print(all_labels)
             
     info = evaInfo(score = score, label = label)
     print(info + '\n')
