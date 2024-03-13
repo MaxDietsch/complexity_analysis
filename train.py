@@ -51,7 +51,7 @@ def evaluation():
             score = score.unsqueeze(dim = 1)
             print(score.shape)
             print(score) 
-            print(score.split(score, dim = 0))
+            print(torch.split(score, dim = 0))
             print(all_scores)
 
             all_scores.append(torch.split(score, dim = 0))
