@@ -50,8 +50,8 @@ def evaluation():
             score, _= model(image)
             all_scores += [score]
             all_labels += [label]
-    score = torch.stack(all_scores, dim = 0)
-    label = torch.stack(all_labels, dim = 0)
+    score = torch.stack(all_scores[ : -1 ], dim = 0)
+    label = torch.stack(all_labels[ : -1 ], dim = 0)
     info = evaInfo(score = score, label = label)
     print(info + '\n')
 
