@@ -24,6 +24,7 @@ def train(epoch):
         Opmimizer.zero_grad()
         score1, cly_map = model(image)
         print(score1)
+        print(label)
         score2 = cly_map.mean(axis = (1,2,3))
         loss1 = loss_function(score1,label)
         loss2 = loss_function(score2,label)
