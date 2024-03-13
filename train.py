@@ -26,8 +26,8 @@ def train(epoch):
         #print(score1)
         #print(label)
         score2 = cly_map.mean(axis = (1,2,3))
-        score1 *= 9
-        score2 *= 9
+        score1 = score1 * 9
+        score2 = score2 * 9
         loss1 = loss_function(score1,label)
         loss2 = loss_function(score2,label)
         loss = 0.9*loss1 + 0.1*loss2
@@ -59,8 +59,8 @@ def evaluation():
     all_scores = torch.stack(all_scores)
     all_labels = torch.stack(all_labels)
 
-    print(all_scores)
-    print(all_labels)
+    #print(all_scores)
+    #print(all_labels)
             
     info = evaInfo(score = score, label = label)
     print(info + '\n')
