@@ -31,7 +31,7 @@ class ic_dataset(Dataset):
     def __getitem__(self,index):
         imgName, imgLabel= self.img_info_list[index]
         oriImgPath = os.path.join(self.img_path, imgName)
-        print(np.array(img))
+        print(torch.tensor(img))
         img = self.transform(img)
         label = torch.tensor(float(imgLabel))
         return img,label,imgName
