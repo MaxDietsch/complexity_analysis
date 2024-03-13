@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-
+# spatial dim must be divider of height and width of input
 class slam(nn.Module):
     def __init__(self, spatial_dim):
         super(slam,self).__init__()
@@ -24,16 +24,10 @@ class slam(nn.Module):
             x = feature
 
 
-        x = x.view(n,c,-1)
-        print(x.shape)
-        x = self.linear(x)
-        print(x.shape)
-        x = x.unsqueeze(dim =3)
-        print(x) 
-        print(x.shape) 
-        print(x.expand_as(feature))
-        print(x.expand_as(feature).shape)
-        out = x.expand_as(feature)*feature
+        x = x.view(n,c,-1) # (b, c, spatial_dim**2)
+        x = self.linear(x) # (b, c, 1)
+        x = x.unsqueeze(dim =3) # (b, c, 1, 1) -> (expand_as) -> (b, c, h, w)
+        out = x.expand_as(feature)*feature 
 
         return out
         

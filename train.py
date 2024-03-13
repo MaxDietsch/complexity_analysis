@@ -48,10 +48,12 @@ def evaluation():
         label = label / 9
         with torch.no_grad():
             score, _= model(image)
-            all_scores += [score]
-            all_labels += [label]
-    score = torch.stack(all_scores[ : -1 ], dim = 0)
-    label = torch.stack(all_labels[ : -1 ], dim = 0)
+            all_scores.append(torch.split(score, dim = 0))
+            all_labels.append(torch.split(score, dim = 0))
+            print(score) 
+            print(score.split(score, dim = 0))
+            print(all_scores)
+
     info = evaInfo(score = score, label = label)
     print(info + '\n')
 
@@ -73,7 +75,7 @@ if __name__ == "__main__":
     ])
   
     trainDataset = ic_dataset(
-        txt_path ="../dataset_default/meta/train.txt",
+        txt_path ="../dataset_default/meta/train_min_min.txt",
         img_path = "",
         transform = trainTransform
     )
