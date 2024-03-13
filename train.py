@@ -48,8 +48,8 @@ def evaluation():
         label = label / 9
         with torch.no_grad():
             score, _= model(image)
-            all_scores += score * 9
-            all_labels += label * 9
+            all_scores += [score]
+            all_labels += [label]
     score = torch.stack(all_scores, dim = 0)
     label = torch.stack(all_labels, dim = 0)
     info = evaInfo(score = score, label = label)
