@@ -49,11 +49,9 @@ def evaluation():
         with torch.no_grad():
             score, _= model(image)
             score = score.unsqueeze(dim = 1)
-            print(score.shape)
-            print(score) 
-            print(torch.split(score, 1, dim = 0))
 
-            all_scores.append(torch.split(score, dim = 0))
+            all_scores.append(*(torch.split(score, 1, dim = 0)))
+            print(all_scores)
             all_labels.append(torch.split(score, dim = 0))
             
 
