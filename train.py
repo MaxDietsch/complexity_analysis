@@ -48,6 +48,10 @@ def evaluation():
         label = label / 9
         with torch.no_grad():
             score, _= model(image)
+            print(score)
+            print('----' * 10)
+            print(label)
+            print('####' * 10)
             all_scores += [score]
             all_labels += [label]
     score = torch.stack(all_scores[ : -1 ], dim = 0)
