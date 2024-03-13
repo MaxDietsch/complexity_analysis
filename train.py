@@ -41,7 +41,7 @@ def evaluation():
     model.eval()
     all_scores = []
     all_labels = []
-    for (image, label, _) in testDataLoader:
+    for (image, label, _) in valDataLoader:
         image = image.to(device)
         label = label.to(device)
         label = label / 9
@@ -60,14 +60,14 @@ if __name__ == "__main__":
     trainTransform = transforms.Compose([
     transforms.Resize((args.image_size, args.image_size)),
     transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-])
+    transforms.Normalize(mean=[173.10, 175.12, 177.00], std=[94.64, 89.89, 89.64])
+    ])
 
-    testTransform = transforms.Compose([
+    valTransform = transforms.Compose([
     transforms.Resize((args.image_size, args.image_size)),
     transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-])
+    transforms.Normalize(mean=[173.10, 175.12, 177.00], std=[94.64, 89.89, 89.64])
+    ])
   
     trainDataset = ic_dataset(
         txt_path ="../dataset_default/meta/train.txt",
@@ -81,13 +81,13 @@ if __name__ == "__main__":
                              shuffle=True
                              )
 
-    testDataset = ic_dataset(
+    valDataset = ic_dataset(
         txt_path= "../dataset_default/meta/val.txt",
         img_path = "",
-        transform=testTransform
+        transform=valTransform
     )
     
-    testDataLoader = DataLoader(testDataset,
+    valDataLoader = DataLoader(valDataset,
                             batch_size=args.batch_size,
                             num_workers=args.num_workers,
                             shuffle=False

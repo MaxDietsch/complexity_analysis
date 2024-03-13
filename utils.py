@@ -12,13 +12,17 @@ class WarmUpLR(_LRScheduler):
     
 
 def evaInfo(score,label):
+    print(score)
+    print(score.shape)
+    print(label)
+    print(label.shape)
     score = np.array(score)
     label = np.array(label)
 
     RMAE = np.sqrt(np.abs(score - label).mean())
     RMSE = np.sqrt(np.mean(np.abs(score - label) ** 2))
-    Pearson = pearsonr(label, score)[0]
-    Spearmanr = spearmanr(label, score)[0]
+    #Pearson = pearsonr(label, score)[0]
+    #Spearmanr = spearmanr(label, score)[0]
 
     info = ' RMSE : {:.4f} ,   RMAE : {:.4f} ,   Pearsonr : {:.4f} ,   Spearmanr : {:.4f}'.format(
                RMSE,  RMAE, Pearson, Spearmanr) 
