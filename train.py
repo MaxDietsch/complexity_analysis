@@ -20,14 +20,12 @@ def train(epoch):
     for batch_index, (image,label,_) in enumerate(trainDataLoader):        
         image = image.to(device)
         label = label.to(device)
-        label = label 
+        label = label / 9 
         Opmimizer.zero_grad()
         score1, cly_map = model(image)
         #print(score1)
         #print(label)
         score2 = cly_map.mean(axis = (1,2,3))
-        score1 = score1 * 9
-        score2 = score2 * 9
         loss1 = loss_function(score1,label)
         loss2 = loss_function(score2,label)
         loss = 0.9*loss1 + 0.1*loss2
@@ -83,7 +81,7 @@ if __name__ == "__main__":
     ])
   
     trainDataset = ic_dataset(
-        txt_path ="../dataset_default/meta/train_min_min.txt",
+        txt_path ="../dataset_default/meta/train.txt",
         img_path = "",
         transform = trainTransform
     )
