@@ -89,10 +89,12 @@ class ICNet(nn.Module):
         self.size2 = size2
         
         ## detail branch
-        self.b1_1 = nn.Sequential(*list(resnet18Pretrained1.children())[:5])   
+        self.b1_1 = nn.Sequential(*list(resnet18Pretrained1.children())[:5])  
+        print(list(resnet18Pretrained1.children())[:5])
         self.b1_1_slam = slam(32)
     
-        self.b1_2 = list(resnet18Pretrained1.children())[5]   
+        self.b1_2 = list(resnet18Pretrained1.children())[5]
+        print(list(resnet18Pretrained1.children())[5])
         self.b1_2_slam = slam(32)
 
         ## context branch
