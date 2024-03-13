@@ -47,9 +47,9 @@ def evaluation():
         label = label / 9
         with torch.no_grad():
             score, _= model(image)
-            all_scores += score.tolist()
-            all_labels += label.tolist()
-    info = evaInfo(score=all_scores, label=all_labels)
+            #all_scores += score.tolist()
+            #all_labels += label.tolist()
+    info = evaInfo(score = score, label = label)
     print(info + '\n')
 
 
