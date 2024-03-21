@@ -79,8 +79,8 @@ class up_conv_bn_relu(nn.Module):
 class ICNet(nn.Module):
     def __init__(self, is_pretrain = True, size1 = 512, size2 = 256):
         super(ICNet,self).__init__()
-        resnet18Pretrained1 = torchvision.models.resnet18(pretrained = is_pretrain)
-        resnet18Pretrained2 = torchvision.models.resnet18(pretrained = is_pretrain)
+        resnet18Pretrained1 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
+        resnet18Pretrained2 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
         
         self.size1 = size1
         self.size2 = size2
