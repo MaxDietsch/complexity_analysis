@@ -2,6 +2,7 @@ import torch
 import torchvision
 import torch.nn as nn
 import torch.nn.functional as F
+from torchvision.models import ResNet18_Weights
 
 
 # spatial dim must be divider of height and width of input
