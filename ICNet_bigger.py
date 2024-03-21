@@ -114,12 +114,12 @@ class ICNet(nn.Module):
         
         ## map prediction head
         self.to_map_f = conv_bn_relu(256*2,256*2)
-        self.to_map_f_slam = slam(self.slam_size)
+        self.to_map_f_slam = slam(self.size_slam)
         self.to_map = to_map(256*2)
         
         ## score prediction head
         self.to_score_f = conv_bn_relu(256*2,256*2)
-        self.to_score_f_slam = slam(self.slam_size)
+        self.to_score_f_slam = slam(self.size_slam)
         self.head = nn.Sequential(
             nn.Linear(256*2,512),
             nn.ReLU(),

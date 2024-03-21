@@ -122,7 +122,8 @@ if __name__ == "__main__":
     for epoch in range(1, args.epoch+1):
         train(epoch)
         evaluation()
-        #torch.save(model.state_dict(), os.path.join(args.ck_save_dir,'ck_{}.pth'.format(epoch)))
+    
+    torch.save(model.state_dict(), os.path.join(args.ck_save_dir,'ck_{}.pth'.format(epoch)))
 
     
 
