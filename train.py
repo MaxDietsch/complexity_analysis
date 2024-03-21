@@ -106,7 +106,7 @@ if __name__ == "__main__":
     if not os.path.exists(args.ck_save_dir):
         os.mkdir(args.ck_save_dir)
     
-    model = ICNet() 
+    model = ICNet(args.image_size, args.image_size // 2) 
     
     device = torch.device("cuda:{}".format(args.gpu_id))
     model.to(device)
