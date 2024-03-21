@@ -117,7 +117,6 @@ if __name__ == "__main__":
     params = model.parameters()
     Opmimizer = optim.SGD(params, lr =args.lr,momentum=0.9,weight_decay=args.weight_decay)
     Scheduler = optim.lr_scheduler.MultiStepLR(Opmimizer,milestones=args.milestone,gamma = args.lr_decay_rate)
-    iter_per_epoch = len(trainDataLoader)
     
     # running
     for epoch in range(1, args.epoch+1):
