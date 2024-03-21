@@ -78,33 +78,34 @@ class up_conv_bn_relu(nn.Module):
 
 
 class ICNet(nn.Module):
-    def __init__(self, size1 = 512, size2 = 256):
+    def __init__(self, size1 = 512, size2 = 256, size_slam = 32):
         super(ICNet,self).__init__()
         resnet18Pretrained1 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
         resnet18Pretrained2 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
         
         self.size1 = size1
         self.size2 = size2
+        self.size_slam = size_slam
         
         ## detail branch
         self.b1_1 = nn.Sequential(*list(resnet18Pretrained1.children())[:5])  
-        self.b1_1_slam = slam(32)
+        self.b1_1_slam = slam(self.size_slam)
     
         self.b1_2 = list(resnet18Pretrained1.children())[5]
-        self.b1_2_slam = slam(32)
+        self.b1_2_slam = slam(self.size_slam)
 
         ## context branch
         self.b2_1 = nn.Sequential(*list(resnet18Pretrained2.children())[:5])
-        self.b2_1_slam = slam(32)
+        self.b2_1_slam = slam(self.size_slam)
         
         self.b2_2 = list(resnet18Pretrained2.children())[5]
-        self.b2_2_slam = slam(32)
+        self.b2_2_slam = slam(self.size_slam)
     
         self.b2_3 = list(resnet18Pretrained2.children())[6]
-        self.b2_3_slam = slam(16)
+        self.b2_3_slam = slam(self.size_slam // 2)
         
         self.b2_4 = list(resnet18Pretrained2.children())[7]
-        self.b2_4_slam = slam(8)
+        self.b2_4_slam = slam(self.size_slam // 4)
 
         ## upsample
         self.upsize = size1 // 8
@@ -113,12 +114,12 @@ class ICNet(nn.Module):
         
         ## map prediction head
         self.to_map_f = conv_bn_relu(256*2,256*2)
-        self.to_map_f_slam = slam(32)
+        self.to_map_f_slam = slam(self.slam_size)
         self.to_map = to_map(256*2)
         
         ## score prediction head
         self.to_score_f = conv_bn_relu(256*2,256*2)
-        self.to_score_f_slam = slam(32)
+        self.to_score_f_slam = slam(self.slam_size)
         self.head = nn.Sequential(
             nn.Linear(256*2,512),
             nn.ReLU(),
