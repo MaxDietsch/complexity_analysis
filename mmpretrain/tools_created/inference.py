@@ -38,6 +38,7 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
 
         image = Image.open('../' + path)
         image = image.convert('RGB')
+        width, height = image.size
         tensor = transform(image)
         tensor = tensor.unsqueeze(dim = 0)
         print(tensor.shape)
@@ -50,7 +51,9 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
         print(new_path)
         transform_to_image = transforms.ToPILImage()
         image = transform_to_image(cly_map)
+
         image = image.convert('L')
+        image = image.resize((width, height), Image.ANTIALIAS)
         image.save(new_path)
 
 
