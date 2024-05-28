@@ -82,7 +82,7 @@ class up_conv_bn_relu(nn.Module):
 @MODELS.register_module()
 class ICNetBackboneRes18Out128(BaseBackbone):
     def __init__(self, image_size = 1024, size_slam = 128, init_cfg = None):
-        super(ICNet,self).__init__(init_cfg)
+        super(ICNetBackboneRes18Out128, self).__init__(init_cfg)
         resnet18Pretrained1 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
         resnet18Pretrained2 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
         
