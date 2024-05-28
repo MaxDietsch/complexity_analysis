@@ -85,7 +85,8 @@ class ICNetBackboneRes18Out128(BaseBackbone):
                  image_size = 1024, 
                  size_slam = 128, 
                  init_cfg = None,
-                 norm_eval = False):
+                 norm_eval = False, 
+                 out_dim = 256):
 
         super(ICNetBackboneRes18Out128, self).__init__(init_cfg)
         resnet18Pretrained1 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
@@ -94,7 +95,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         self.image_size = image_size
         self.size_slam = size_slam
         self.norm_eval = norm_eval
-
+        self.out_dim = out_dim
         
         ## detail branch
         self.b1_1 = nn.Sequential(*list(resnet18Pretrained1.children())[:5])  
@@ -120,6 +121,23 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         self.upsize = image_size // 8
         self.up1 = up_conv_bn_relu(up_size = self.upsize, in_channels = 128, out_channels = 256)
         self.up2 = up_conv_bn_relu(up_size = self.upsize, in_channels = 512, out_channels = 256)
+
+        # map prediction
+        self.to_map_f = conv_bn_relu(256*2,256*2)
+        self.to_map_f_slam = slam(self.size_slam)
+        self.to_map = to_map(256*2)
+        #map scoring
+        self.map_to_vec = nn.Linear(128 * 128, self.out_dim // 2)
+
+        ## score prediction head
+        self.to_score_f = conv_bn_relu(256*2,256*2)
+        self.to_score_f_slam = slam(self.size_slam)
+        self.head = nn.Sequential(
+            nn.Linear(256*2,512),
+            nn.ReLU(),
+            nn.Linear(512, self.out_dim // 2)
+        )
+        self.avgpool = nn.AdaptiveAvgPool2d((1,1))
        
     
     def forward(self, x1):
@@ -161,7 +179,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         #print(x2.shape)
         
         x2 = self.b2_4_slam(x2) #(b, 512, 16, 16)
-
+        #print(x2.shape)
 
         x1 = self.up1(x1) #(b, 256, 128, 128)
         #print(x1.shape)
@@ -170,9 +188,42 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         #print(x2.shape)
 
         x_cat = torch.cat((x1, x2), dim = 1) #(b, 512, 128, 128)
-        print(x_cat.shape)
+        #print(x_cat.shape)
 
-        return x_cat
+        cly_map = self.to_map_f(x_cat) #(b, 512, 128, 128)
+        #print(cly_map.shape)
+
+        cly_map = self.to_map_f_slam(cly_map) #(b, 512, 128, 128)
+        #print(cly_map.shape)
+
+        cly_map = self.to_map(cly_map) #(b, 1, 128, 128)
+        #print(cly_map.shape)
+
+        map_score = cly_map.view(b, -1) #(b, 128 * 128)
+        #print(map_score)
+
+        map_score = self.map_to_vec(map_score) #(b, self.out_dim // 2)
+        #print(map_score)
+
+        detail_score = self.to_score_f(x_cat) #(b, 512, 128, 128)
+        #print(score_feature.shape)
+
+        detail_score = self.to_score_f_slam(detail_score) #(b, 512, 256, 256)
+        #print(score_feature.shape)
+
+        detail_score = self.avgpool(detail_score) #(b, 512, 1, 1)
+        #print(score_feature.shape)
+
+        detail_score = detail_score.squeeze() #(b, 512)
+        #print(score_feature.shape)
+
+        detail_score = self.head(detail_score) #(b, self.out_dim // 2)
+        #print(score.shape)
+
+        score = torch.cat((detail_score, map_score), dim = 1)
+
+        return score, cly_map
+
 
     def train(self, mode = True):
         super(ICNetBackboneRes18Out128, self).train(mode)
@@ -181,4 +232,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
                 # trick: eval have effect on BatchNorm only
                 if isinstance(m, _BatchNorm):
                     m.eval()
+
+    def init_weights(self):
+        super(ICNetBackboneRes18Out128, self).init_weights()
 
