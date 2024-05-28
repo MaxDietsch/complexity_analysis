@@ -71,7 +71,8 @@ class ICNetHead128(BaseModule):
              loss: dict = dict(type='ICNetLoss'),
              topk: Union[int, Tuple[int]] = (1, ),
              cal_acc: bool = False,
-             init_cfg: Optional[dict] = None):
+             init_cfg: Optional[dict] = None,
+             size_slam = 128):
         super(ICNetHead128, self).__init__(init_cfg=init_cfg)
 
         self.topk = topk
@@ -79,7 +80,7 @@ class ICNetHead128(BaseModule):
             loss = MODELS.build(loss)
         self.loss_module = loss
         self.cal_acc = cal_acc
-
+        self.size_slam = size_slam
         # map prediction
         self.to_map_f = conv_bn_relu(256*2,256*2)
         self.to_map_f_slam = slam(self.size_slam)
