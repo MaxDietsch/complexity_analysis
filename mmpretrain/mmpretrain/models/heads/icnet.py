@@ -125,9 +125,6 @@ class ICNetHead128(BaseModule):
         detail_score = self.head(detail_score) #(b, 1)
         #print(score.shape)
         
-        print(cly_map.shape)
-        print(detail_score.shape)
-
         outs = [cly_map, detail_score]
 
         return outs
@@ -168,7 +165,7 @@ class ICNetHead128(BaseModule):
         # compute loss
         losses = dict()
         loss = self.loss_module(
-            cls_score, target, avg_factor=cls_score.size(0), **kwargs)
+            cls_score, target, avg_factor=cls_score[1].size(0), **kwargs)
         losses['loss'] = loss
 
         # compute accuracy
