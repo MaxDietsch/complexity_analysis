@@ -40,6 +40,7 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
         image = image.convert('RGB')
         tensor = transform(image)
         tensor = tensor.unsqueeze(dim = 0)
+        print(tensor.shape)
 
         label = int(label)
         tup = model.model.backbone(tensor)
