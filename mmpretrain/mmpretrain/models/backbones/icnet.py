@@ -221,7 +221,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         #print(score.shape)
 
         score = torch.cat((detail_score, map_score), dim = 1)
-        print(score.shape)
+        #print(score.shape)
 
         return cly_map, score
 
