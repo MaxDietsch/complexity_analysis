@@ -223,7 +223,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         score = torch.cat((detail_score, map_score), dim = 1)
         print(score.shape)
 
-        return score, cly_map
+        return cly_map, score
 
 
     def train(self, mode = True):
