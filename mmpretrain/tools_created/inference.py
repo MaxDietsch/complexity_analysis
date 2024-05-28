@@ -40,7 +40,7 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
         tensor = transform(image)
 
         label = int(label)
-        tup = model.model.backbone(path)
+        tup = model.model.backbone(tensor)
         cly_map = tup[0]
         
         new_path = os.path.join(new_directory, filename, str(label), file_extension)
