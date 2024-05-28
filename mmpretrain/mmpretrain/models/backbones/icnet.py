@@ -214,7 +214,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         detail_score = self.avgpool(detail_score) #(b, 512, 1, 1)
         #print(score_feature.shape)
 
-        detail_score = detail_score.squeeze() #(b, 512)
+        detail_score = detail_score.squeeze(dim = (2, 3)) #(b, 512)
         #print(score_feature.shape)
 
         detail_score = self.head(detail_score) #(b, self.out_dim // 2)
