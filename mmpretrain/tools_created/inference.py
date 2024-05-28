@@ -53,7 +53,7 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
         image = transform_to_image(cly_map)
 
         image = image.convert('L')
-        image = image.resize((width, height), Image.ANTIALIAS)
+        image = image.resize((width, height))
         image.save(new_path)
 
 
