@@ -110,7 +110,7 @@ class ICNetHead128(BaseModule):
         cly_map = self.to_map(cly_map) #(b, 1, 128, 128)
         #print(cly_map.shape)
 
-        detail_score = self.to_score_f(x_cat) #(b, 512, 128, 128)
+        detail_score = self.to_score_f(feats) #(b, 512, 128, 128)
         #print(score_feature.shape)
 
         detail_score = self.to_score_f_slam(detail_score) #(b, 512, 256, 256)
@@ -124,7 +124,9 @@ class ICNetHead128(BaseModule):
 
         detail_score = self.head(detail_score) #(b, 1)
         #print(score.shape)
-
+        
+        print(cly_map.shape)
+        print(score.shape)
 
         outs = [cly_map, score]
 
