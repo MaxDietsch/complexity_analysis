@@ -93,6 +93,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         
         self.image_size = image_size
         self.size_slam = size_slam
+        self.norm_eval = norm_eval
 
         
         ## detail branch
