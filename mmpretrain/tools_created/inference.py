@@ -8,7 +8,7 @@ model = 'icnet128'
 epoch = '12'
 
 
-model_config = f'../config/work_dirs/{model}.py'
+model_config = f'../tools/work_dirs/{model}/{model}.py'
 model_pretrained = f'../tools/work_dirs/{model}/epoch_{epoch}.pth'
 
 
