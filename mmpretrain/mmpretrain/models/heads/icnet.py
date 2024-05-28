@@ -94,14 +94,13 @@ class ICNetHead128(BaseModule):
             nn.Linear(256*2,512),
             nn.ReLU(),
             nn.Linear(512, 1),
-            nn.Sigmoid
+            nn.Sigmoid()
         )
         self.avgpool = nn.AdaptiveAvgPool2d((1,1))
 
 
 
     def pre_logits(self, feats: Tuple[torch.Tensor]):
-
         print('pre_logits was called which is not implemented for regression head of ICNet')
 
 
