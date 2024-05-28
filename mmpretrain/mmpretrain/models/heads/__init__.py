@@ -31,6 +31,7 @@ from .swav_head import SwAVHead
 from .vig_head import VigClsHead
 from .vision_transformer_head import VisionTransformerClsHead
 from .vqa_head import VQAGenerationHead
+from .icnet import ICNetHead128
 
 __all__ = [
     'ClsHead',
@@ -66,4 +67,5 @@ __all__ = [
     'GroundingHead',
     'iTPNClipHead',
     'SparKPretrainHead',
+    'ICNetHead128'
 ]

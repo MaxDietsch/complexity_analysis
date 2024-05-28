@@ -36,32 +36,6 @@ class slam(nn.Module):
         return out
         
 
-class to_map(nn.Module):
-    def __init__(self,channels):
-        super(to_map,self).__init__()
-        self.to_map = nn.Sequential(
-            nn.Conv2d(in_channels=channels,out_channels=1, kernel_size=1,stride=1),
-            nn.Sigmoid()
-        )
-        
-    def forward(self,feature):
-        return self.to_map(feature)
-    
-        
-class conv_bn_relu(nn.Module):
-    def __init__(self,in_channels, out_channels, kernel_size = 3, padding = 1, stride = 1):
-        super(conv_bn_relu,self).__init__()
-        self.conv = nn.Conv2d(in_channels= in_channels, out_channels= out_channels, kernel_size= kernel_size, padding= padding, stride = stride)
-        self.bn = nn.BatchNorm2d(out_channels)
-        self.relu = nn.ReLU()
-        
-    def forward(self,x):
-        x = self.conv(x)
-        x = self.bn(x)
-        x = self.relu(x)
-        return x
-
-        
 
 class up_conv_bn_relu(nn.Module):
     def __init__(self,up_size, in_channels, out_channels = 64, kernal_size = 1, padding =0, stride = 1):
@@ -85,8 +59,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
                  image_size = 1024, 
                  size_slam = 128, 
                  init_cfg = None,
-                 norm_eval = False, 
-                 out_dim = 256):
+                 norm_eval = False):
 
         super(ICNetBackboneRes18Out128, self).__init__(init_cfg)
         resnet18Pretrained1 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
@@ -95,7 +68,6 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         self.image_size = image_size
         self.size_slam = size_slam
         self.norm_eval = norm_eval
-        self.out_dim = out_dim
         
         ## detail branch
         self.b1_1 = nn.Sequential(*list(resnet18Pretrained1.children())[:5])  
@@ -122,23 +94,6 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         self.up1 = up_conv_bn_relu(up_size = self.upsize, in_channels = 128, out_channels = 256)
         self.up2 = up_conv_bn_relu(up_size = self.upsize, in_channels = 512, out_channels = 256)
 
-        # map prediction
-        self.to_map_f = conv_bn_relu(256*2,256*2)
-        self.to_map_f_slam = slam(self.size_slam)
-        self.to_map = to_map(256*2)
-        #map scoring
-        self.map_to_vec = nn.Linear(128 * 128, self.out_dim // 2)
-
-        ## score prediction head
-        self.to_score_f = conv_bn_relu(256*2,256*2)
-        self.to_score_f_slam = slam(self.size_slam)
-        self.head = nn.Sequential(
-            nn.Linear(256*2,512),
-            nn.ReLU(),
-            nn.Linear(512, self.out_dim // 2)
-        )
-        self.avgpool = nn.AdaptiveAvgPool2d((1,1))
-       
     
     def forward(self, x1):
         assert(x1.shape[2] == x1.shape[3] == self.image_size)
@@ -190,43 +145,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         x_cat = torch.cat((x1, x2), dim = 1) #(b, 512, 128, 128)
         #print(x_cat.shape)
 
-        cly_map = self.to_map_f(x_cat) #(b, 512, 128, 128)
-        #print(cly_map.shape)
-
-        cly_map = self.to_map_f_slam(cly_map) #(b, 512, 128, 128)
-        #print(cly_map.shape)
-
-        cly_map = self.to_map(cly_map) #(b, 1, 128, 128)
-        #print(cly_map.shape)
-
-        map_score = cly_map.view(cly_map.shape[0], -1) #(b, 128 * 128)
-        #print(map_score)
-
-        map_score = self.map_to_vec(map_score) #(b, self.out_dim // 2)
-        #print(map_score)
-
-        detail_score = self.to_score_f(x_cat) #(b, 512, 128, 128)
-        #print(score_feature.shape)
-
-        detail_score = self.to_score_f_slam(detail_score) #(b, 512, 256, 256)
-        #print(score_feature.shape)
-
-        detail_score = self.avgpool(detail_score) #(b, 512, 1, 1)
-        #print(score_feature.shape)
-
-        detail_score = detail_score.squeeze(dim = (2, 3)) #(b, 512)
-        #print(score_feature.shape)
-
-        detail_score = self.head(detail_score) #(b, self.out_dim // 2)
-        #print(score.shape)
-
-        score = torch.cat((detail_score, map_score), dim = 1)
-        #print(score.shape)
-
-        outs = [cly_map, score]
-
-        return tuple(outs)
-
+        return x_cat
 
     def train(self, mode = True):
         super(ICNetBackboneRes18Out128, self).train(mode)
