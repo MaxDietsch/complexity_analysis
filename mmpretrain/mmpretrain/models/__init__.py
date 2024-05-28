@@ -13,7 +13,7 @@ from .retrievers import *  # noqa: F401,F403
 from .selfsup import *  # noqa: F401,F403
 from .tta import *  # noqa: F401,F403
 from .utils import *  # noqa: F401,F403
-from .regressor import *
+from .regressors import *
 __all__ = [
     'BACKBONES', 'HEADS', 'NECKS', 'LOSSES', 'CLASSIFIERS', 'build_backbone',
     'build_head', 'build_neck', 'build_loss', 'build_classifier'
