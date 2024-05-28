@@ -37,6 +37,7 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
         filename, file_extension = os.path.splitext(filename)
 
         image = Image.open('../' + path)
+        image = image.convert('RGB')
         tensor = transform(image)
         tensor = tensor.unsqueeze(dim = 0)
 
