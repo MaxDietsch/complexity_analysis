@@ -19,6 +19,7 @@ paths, labels = [], []
 with open("../../../dataset_default/meta/test.txt", "r") as file:
     for line in file:
         path, label = line.strip().split(" ", 1)
+        print(path)
         label = int(label)
         tup = model.model.backbone(path)
         cly_map = tup[0]
