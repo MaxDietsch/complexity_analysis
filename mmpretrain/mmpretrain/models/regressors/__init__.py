@@ -1,8 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-from .base import BaseClassifier
+from .base import BaseRegressor
 from .icnet import ICNetRegressor
 
 
 __all__ = [
-    'BaseClassifier', 'ICNetRegressor'
+    'BaseRegressor', 'ICNetRegressor'
 ]
