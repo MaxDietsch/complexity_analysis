@@ -100,7 +100,8 @@ class ICNetHead128(BaseModule):
 
 
 
-    def pre_logits(self, feats: Tuple[torch.Tensor]) -> torch.Tensor:
+    def pre_logits(self, feats: Tuple[torch.Tensor]):
+
         print('pre_logits was called which is not implemented for regression head of ICNet')
 
 
