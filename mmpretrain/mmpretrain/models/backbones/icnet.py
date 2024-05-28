@@ -116,7 +116,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         self.up2 = up_conv_bn_relu(up_size = self.upsize, in_channels = 512, out_channels = 256)
        
     
-    def forward(self, x):
+    def forward(self, x1):
         assert(x1.shape[2] == x1.shape[3] == self.image_size)
         x2 = F.interpolate(x1, size= (self.image_size // 2,self.image_size // 2), mode = "bilinear", align_corners= True)
         
