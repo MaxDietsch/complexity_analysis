@@ -47,6 +47,7 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
         cly_map = tup[0].squeeze()
         
         new_path = os.path.join(output_dir, filename, str(label), '.', file_extension)
+        print(new_path)
         transform_to_image = transforms.ToPILImage()
         image = transform_to_image(cly_map)
         image = image.convert('L')
