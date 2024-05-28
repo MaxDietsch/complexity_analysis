@@ -2,6 +2,9 @@ from mmpretrain import ImageClassificationInferencer
 import torch
 from mmengine.config import Config
 import numpy as np
+import torchvision.transforms as transforms
+from PIL import Image
+
 
 # for classification of healthy or unhealthy
 model = 'icnet128'
@@ -10,20 +13,39 @@ epoch = '12'
 
 model_config = f'../tools/work_dirs/{model}/{model}.py'
 model_pretrained = f'../tools/work_dirs/{model}/epoch_{epoch}.pth'
+output_dir = '../../plain_torch/output_images'
+image_size = (1024, 1024)
 
 
 cfg = Config.fromfile(model_config)
 model = ImageClassificationInferencer(model = model_config, pretrained = model_pretrained)
-paths, labels = [], []
+
+
+# Define the transformations: resize and convert to tensor
+transform = transforms.Compose([
+    transforms.Resize(image_size),
+    transforms.ToTensor()
+])
+
+
 
 with open("../../../dataset_default/meta/test.txt", "r") as file:
     for line in file:
         path, label = line.strip().split(" ", 1)
-        print(path)
+        filename = os.path.basename(image_path)
+        filename, file_extension = os.path.splitext(filename_with_extension)
+
+        image = Image.open(path)
+        tensor = transform(image)
+
         label = int(label)
         tup = model.model.backbone(path)
         cly_map = tup[0]
-        print(path)
+        
+        new_path = os.path.join(new_directory, filename, str(label), file_extension)
+        image = transforms.ToPilImage(cly_map)
+        image.save(new_path)
+
 
 
             
