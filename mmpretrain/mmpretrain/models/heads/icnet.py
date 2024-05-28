@@ -67,7 +67,7 @@ class conv_bn_relu(nn.Module):
 class ICNetHead128(BaseModule):
 
 
-     def __init__(self,
+    def __init__(self,
              loss: dict = dict(type='ICNetLoss'),
              topk: Union[int, Tuple[int]] = (1, ),
              cal_acc: bool = False,
@@ -93,11 +93,12 @@ class ICNetHead128(BaseModule):
         self.head = nn.Sequential(
             nn.Linear(256*2,512),
             nn.ReLU(),
-            nn.Linear(512, 1),
-            nn.Sigmoid()
+            nn.Linear(512, 1), nn.Sigmoid()
         )
         self.avgpool = nn.AdaptiveAvgPool2d((1,1))
-
+    
+    def pre_logits(self, feats: Tuple[torch.Tensor]):
+        print('pre_logits was called which is not implemented for regression head of ICNet')
 
     def forward(self, feats: torch.Tensor) -> torch.Tensor:
         """The forward process."""
