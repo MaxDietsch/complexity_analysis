@@ -38,6 +38,7 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
 
         image = Image.open('../' + path)
         tensor = transform(image)
+        tensor = tensor.unsqueeze(dim = 0)
 
         label = int(label)
         tup = model.model.backbone(tensor)
