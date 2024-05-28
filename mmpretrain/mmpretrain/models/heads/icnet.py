@@ -99,11 +99,6 @@ class ICNetHead128(BaseModule):
         self.avgpool = nn.AdaptiveAvgPool2d((1,1))
 
 
-
-    def pre_logits(self, feats: Tuple[torch.Tensor]):
-        print('pre_logits was called which is not implemented for regression head of ICNet')
-
-
     def forward(self, feats: torch.Tensor) -> torch.Tensor:
         """The forward process."""
         cly_map = self.to_map_f(feats) #(b, 512, 128, 128)
