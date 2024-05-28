@@ -33,8 +33,8 @@ transform = transforms.Compose([
 with open("../../../dataset_default/meta/test.txt", "r") as file:
     for line in file:
         path, label = line.strip().split(" ", 1)
-        filename = os.path.basename(image_path)
-        filename, file_extension = os.path.splitext(filename_with_extension)
+        filename = os.path.basename(path)
+        filename, file_extension = os.path.splitext(filename)
 
         image = Image.open(path)
         tensor = transform(image)
