@@ -126,9 +126,9 @@ class ICNetHead128(BaseModule):
         #print(score.shape)
         
         print(cly_map.shape)
-        print(score.shape)
+        print(detail_score.shape)
 
-        outs = [cly_map, score]
+        outs = [cly_map, detail_score]
 
         return outs
 
