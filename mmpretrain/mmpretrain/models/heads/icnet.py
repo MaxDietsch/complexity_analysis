@@ -85,8 +85,6 @@ class ICNetHead128(BaseModule):
         self.to_map_f = conv_bn_relu(256*2,256*2)
         self.to_map_f_slam = slam(self.size_slam)
         self.to_map = to_map(256*2)
-        #map scoring
-        self.map_to_vec = nn.Linear(128 * 128, self.out_dim // 2)
 
         ## score prediction head
         self.to_score_f = conv_bn_relu(256*2,256*2)
@@ -111,12 +109,6 @@ class ICNetHead128(BaseModule):
 
         cly_map = self.to_map(cly_map) #(b, 1, 128, 128)
         #print(cly_map.shape)
-
-        map_score = cly_map.view(cly_map.shape[0], -1) #(b, 128 * 128)
-        #print(map_score)
-
-        map_score = self.map_to_vec(map_score) #(b, self.out_dim // 2)
-        #print(map_score)
 
         detail_score = self.to_score_f(x_cat) #(b, 512, 128, 128)
         #print(score_feature.shape)
