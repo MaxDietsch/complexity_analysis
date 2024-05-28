@@ -199,7 +199,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         cly_map = self.to_map(cly_map) #(b, 1, 128, 128)
         #print(cly_map.shape)
 
-        map_score = cly_map.view(b, -1) #(b, 128 * 128)
+        map_score = cly_map.view(cly_map.shape[0], -1) #(b, 128 * 128)
         #print(map_score)
 
         map_score = self.map_to_vec(map_score) #(b, self.out_dim // 2)
