@@ -223,7 +223,9 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         score = torch.cat((detail_score, map_score), dim = 1)
         #print(score.shape)
 
-        return score
+        out = [cly_map, score]
+
+        return tuple(outs)
 
 
     def train(self, mode = True):
