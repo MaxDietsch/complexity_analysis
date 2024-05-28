@@ -5,11 +5,11 @@ import torch.nn as nn
 
 from mmpretrain.registry import MODELS
 from mmpretrain.structures import DataSample
-from .base import BaseClassifier
+from .base import BaseRegressor
 
 
 @MODELS.register_module()
-class ICNetRegressor(BaseClassifier):
+class ICNetRegressor(BaseRegressor):
 
     def __init__(self,
                  backbone: dict,
