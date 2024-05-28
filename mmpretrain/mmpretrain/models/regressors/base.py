@@ -28,7 +28,7 @@ class BaseRegressor(BaseModel, metaclass=ABCMeta):
     def __init__(self,
                  init_cfg: Optional[dict] = None,
                  data_preprocessor: Optional[dict] = None):
-        super(BaseClassifier, self).__init__(
+        super(BaseRegressor, self).__init__(
             init_cfg=init_cfg, data_preprocessor=data_preprocessor)
 
     @property
