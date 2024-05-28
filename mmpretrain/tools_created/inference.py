@@ -14,7 +14,7 @@ model_pretrained = f'../tools/work_dirs/{model}/epoch_{epoch}.pth'
 
 cfg = Config.fromfile(model_config)
 model = ImageClassificationInferencer(model = model_config, pretrained = model_pretrained)
-
+print(model.model)
 paths, labels = [], []
 
 with open("../../../dataset_default/meta/test.txt", "r") as file:
