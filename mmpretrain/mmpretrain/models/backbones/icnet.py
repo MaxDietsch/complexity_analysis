@@ -81,7 +81,12 @@ class up_conv_bn_relu(nn.Module):
 
 @MODELS.register_module()
 class ICNetBackboneRes18Out128(BaseBackbone):
-    def __init__(self, image_size = 1024, size_slam = 128, init_cfg = None):
+    def __init__(self, 
+                 image_size = 1024, 
+                 size_slam = 128, 
+                 init_cfg = None,
+                 norm_eval = False):
+
         super(ICNetBackboneRes18Out128, self).__init__(init_cfg)
         resnet18Pretrained1 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
         resnet18Pretrained2 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
@@ -120,8 +125,6 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         assert(x1.shape[2] == x1.shape[3] == self.image_size)
         x2 = F.interpolate(x1, size= (self.image_size // 2,self.image_size // 2), mode = "bilinear", align_corners= True)
         
-        print(self.modules)
-
         # detail branch
         x1 = self.b1_1(x1) #(b, 64, 256, 256)
         
@@ -166,6 +169,15 @@ class ICNetBackboneRes18Out128(BaseBackbone):
         #print(x2.shape)
 
         x_cat = torch.cat((x1, x2), dim = 1) #(b, 512, 128, 128)
-        #print(x_cat.shape)
+        print(x_cat.shape)
 
         return x_cat
+
+    def train(self, mode = True):
+        super(ICNetBackboneRes18Out128, self).train(mode)
+        if mode and self.norm_eval:
+            for m in self.modules():
+                # trick: eval have effect on BatchNorm only
+                if isinstance(m, _BatchNorm):
+                    m.eval()
+
