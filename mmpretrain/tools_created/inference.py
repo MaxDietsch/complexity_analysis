@@ -30,7 +30,7 @@ transform = transforms.Compose([
 
 
 
-with open("../../../dataset_default/meta/test.txt", "r") as file:
+with open("../../../../dataset_default/meta/test.txt", "r") as file:
     for line in file:
         path, label = line.strip().split(" ", 1)
         filename = os.path.basename(path)
