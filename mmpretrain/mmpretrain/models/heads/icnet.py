@@ -134,20 +134,6 @@ class ICNetHead128(BaseModule):
 
     def loss(self, feats: torch.Tensor, data_samples: List[DataSample],
              **kwargs) -> dict:
-        """Calculate losses from the classification score.
-
-        Args:
-            feats (tuple[Tensor]): The features extracted from the backbone.
-                Multiple stage inputs are acceptable but only the last stage
-                will be used to classify. The shape of every item should be
-                ``(num_samples, num_classes)``.
-            data_samples (List[DataSample]): The annotation data of
-                every samples.
-            **kwargs: Other keyword arguments to forward the loss module.
-
-        Returns:
-            dict[str, Tensor]: a dictionary of loss components
-        """
         # The part can be traced by torch.fx
         cls_score = self(feats)
 
@@ -189,21 +175,6 @@ class ICNetHead128(BaseModule):
         feats: Tuple[torch.Tensor],
         data_samples: Optional[List[Optional[DataSample]]] = None
     ) -> List[DataSample]:
-        """Inference without augmentation.
-
-        Args:
-            feats (tuple[Tensor]): The features extracted from the backbone.
-                Multiple stage inputs are acceptable but only the last stage
-                will be used to classify. The shape of every item should be
-                ``(num_samples, num_classes)``.
-            data_samples (List[DataSample | None], optional): The annotation
-                data of every samples. If not None, set ``pred_label`` of
-                the input data samples. Defaults to None.
-
-        Returns:
-            List[DataSample]: A list of data samples which contains the
-            predicted results.
-        """
         # The part can be traced by torch.fx
         cls_score = self(feats)
         cly_map = cls_score[0] 
@@ -214,10 +185,6 @@ class ICNetHead128(BaseModule):
         return predictions, cly_map
 
     def _get_predictions(self, cls_scores, data_samples):
-        """Post-process the output of head.
-
-        Including softmax and set ``pred_label`` of data samples.
-        """
 
         out_data_samples = []
         if data_samples is None:

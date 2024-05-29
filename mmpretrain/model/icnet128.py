@@ -5,7 +5,6 @@ model = dict(
     head=dict(
         type='ICNetHead128',
         loss=dict(type='ICNetLoss', map_weighting = 0.1),
-        topk=(1, 3),
         num_scores = 10,
     ))
 
