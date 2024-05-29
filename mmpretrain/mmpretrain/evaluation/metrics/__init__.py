@@ -12,7 +12,7 @@ from .single_label import Accuracy, ConfusionMatrix, SingleLabelMetric
 from .visual_grounding_eval import VisualGroundingMetric
 from .voc_multi_label import VOCAveragePrecision, VOCMultiLabelMetric
 from .vqa import ReportVQA, VQAAcc
-from .mae import MAE
+from .mae import ICNetMAE
 
 __all__ = [
     'Accuracy', 'SingleLabelMetric', 'MultiLabelMetric', 'AveragePrecision',
