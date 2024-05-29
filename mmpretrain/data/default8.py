@@ -50,7 +50,7 @@ val_dataloader = dict(
         )
 
 val_evaluator = [
-        dict(type='MAE'),
+        dict(type='ICNetMAE'),
         ]
 
 

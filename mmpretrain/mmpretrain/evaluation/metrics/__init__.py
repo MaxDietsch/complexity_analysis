@@ -19,5 +19,5 @@ __all__ = [
     'MultiTasksMetric', 'VOCAveragePrecision', 'VOCMultiLabelMetric',
     'ConfusionMatrix', 'RetrievalRecall', 'VQAAcc', 'ReportVQA', 'COCOCaption',
     'VisualGroundingMetric', 'ScienceQAMetric', 'GQAAcc', 'NocapsSave',
-    'RetrievalAveragePrecision', 'ShapeBiasMetric', 'ANLS', 'MAE'
+    'RetrievalAveragePrecision', 'ShapeBiasMetric', 'ANLS', 'ICNetMAE'
 ]
