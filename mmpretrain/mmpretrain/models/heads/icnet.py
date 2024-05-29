@@ -149,7 +149,7 @@ class ICNetHead128(BaseModule):
         cls_score = self(feats)
 
         # The part can not be traced by torch.fx
-        losses = self._get_loss(cls_score, data_samples, **kwargs)
+        losses = self._get_loss(cls_score, data_samples)
         return losses
 
     def _get_loss(self, cls_score: torch.Tensor,
