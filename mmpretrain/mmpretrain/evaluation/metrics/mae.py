@@ -25,7 +25,8 @@ class ICNetMAE(BaseMetric):
         print(predictions)
         print(targets)
         print(predictions - targets)
-
+        print(torch.abs(predictions - target))
+        print(torch.sum(torch.abs(predictions - targets)))
 
         metrics['MAE'] = torch.mean(torch.abs(predictions - targets))
         return metrics
