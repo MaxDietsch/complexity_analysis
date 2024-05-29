@@ -161,9 +161,9 @@ class ICNetHead128(BaseModule):
         # Unpack data samples and pack targets
         if 'gt_score' in data_samples[0]:
             # Batch augmentation may convert labels to one-hot format scores.
-            target = torch.stack([i.gt_score for i in data_samples], dtype = torch.float)
+            target = torch.stack([i.gt_score for i in data_samples]).to(torch.float)
         else:
-            target = torch.cat([i.gt_label for i in data_samples], dtype = torch.float)
+            target = torch.cat([i.gt_label for i in data_samples]).to(torch.float)
             
         target /= (self.num_scores - 1)
         # compute loss
