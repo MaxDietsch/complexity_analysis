@@ -153,7 +153,7 @@ class ICNetHead128(BaseModule):
         return losses
 
     def _get_loss(self, cls_score: torch.Tensor,
-                  data_samples: List[DataSample], **kwargs):
+                  data_samples: List[DataSample]):
         """Unpack data samples and compute loss."""
         # Unpack data samples and pack targets
         if 'gt_score' in data_samples[0]:
@@ -165,7 +165,7 @@ class ICNetHead128(BaseModule):
         # compute loss
         losses = dict()
         loss = self.loss_module(
-            cls_score, target, avg_factor=cls_score[1].size(0), **kwargs)
+            cls_score, target)
         losses['loss'] = loss
 
         # compute accuracy
