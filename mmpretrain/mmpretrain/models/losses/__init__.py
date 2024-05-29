@@ -12,6 +12,8 @@ from .seesaw_loss import SeesawLoss
 from .swav_loss import SwAVLoss
 from .utils import (convert_to_one_hot, reduce_loss, weight_reduce_loss,
                     weighted_loss)
+from .icnet_loss import ICNetLoss
+
 
 __all__ = [
     'asymmetric_loss',
@@ -32,4 +34,5 @@ __all__ = [
     'CrossCorrelationLoss',
     'PixelReconstructionLoss',
     'SwAVLoss',
+    'ICNetLoss'
 ]
