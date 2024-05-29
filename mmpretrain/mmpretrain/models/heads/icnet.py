@@ -213,7 +213,7 @@ class ICNetHead128(BaseModule):
         predictions = self._get_predictions(cls_score, data_samples)
         return predictions, cly_map
 
-    def _get_predictions(self, cls_score, data_samples):
+    def _get_predictions(self, cls_scores, data_samples):
         """Post-process the output of head.
 
         Including softmax and set ``pred_label`` of data samples.
@@ -223,7 +223,7 @@ class ICNetHead128(BaseModule):
         if data_samples is None:
             data_samples = [None for _ in range(cls_scores.size(0))]
 
-        for data_sample, score, label in zip(data_samples, cls_scores):
+        for data_sample, score in zip(data_samples, cls_scores):
             if data_sample is None:
                 data_sample = DataSample()
 
