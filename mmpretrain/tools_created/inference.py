@@ -56,7 +56,7 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
 
         image = image.convert('L')
         image = image.resize((width, height))
-        image.save(new_path)
+        #image.save(new_path)
 
 
 
