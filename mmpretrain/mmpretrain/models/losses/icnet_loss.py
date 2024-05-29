@@ -11,7 +11,7 @@ class ICNetLoss(nn.Module):
         super(ICNetLoss, self).__init__()
 
         self.map_weighting = map_weighting
-
+        self.loss_function = nn.MSELoss()
     def forward(self, 
                 cls_score,
                 label):
