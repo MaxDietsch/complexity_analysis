@@ -60,6 +60,4 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
 
 
 
-            
-
-
+        
