@@ -46,7 +46,7 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
         label = int(label)
         tup = model.model(tensor)
         cly_map = tup[0].squeeze()
-        print(f'truth: {label} \t predicted: {tup[1].squeeze()}')
+        print(f'truth: {label} \t predicted: {tup[1].squeeze() * 9}')
 
         print(cly_map.shape) 
         new_path = os.path.join(output_dir, filename + '-' + str(label) + file_extension)
