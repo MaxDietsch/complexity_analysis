@@ -9,8 +9,8 @@ class ICNetMAE(BaseMetric):
         super(ICNetMAE, self).__init__()
 
     def process(self, data_batch: Sequence[Dict], data_samples: Sequence[Dict]):
-        result['pred_score'] = data_sample['pred_score'].cpu()
-        result['gt_label'] = data_sample['gt_label'].cpu()
+        result['pred_score'] = data_samples['pred_score'].cpu()
+        result['gt_label'] = data_samples['gt_label'].cpu()
         self.results.append(result)
 
     def compute_metrics(self, results: List):
