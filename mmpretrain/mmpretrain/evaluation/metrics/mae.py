@@ -1,3 +1,4 @@
+from typing import List, Optional, Sequence, Union
 from mmengine.evaluator import BaseMetric
 from mmpretrain.registry import METRICS
 
