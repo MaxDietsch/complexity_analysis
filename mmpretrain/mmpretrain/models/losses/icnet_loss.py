@@ -15,5 +15,11 @@ class ICNetLoss(nn.Module):
     def forward(self, 
                 cls_score,
                 label):
-        print(cls_score)
-        print(label)
+        score1 = cls_score[1]
+        score2 = cls_score[0].mean(axis = (1, 2, 3))
+
+        loss1 = self.loss_function(score1, label)
+        loss2 = self.loss_function(score2, label)
+        loss = (1 - self.map_weighting) * loss1 + self.map_weighting * loss2
+        return loss
+        
