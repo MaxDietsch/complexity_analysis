@@ -161,11 +161,11 @@ class ICNetHead128(BaseModule):
         # Unpack data samples and pack targets
         if 'gt_score' in data_samples[0]:
             # Batch augmentation may convert labels to one-hot format scores.
-            target = torch.stack([i.gt_score for i in data_samples])
+            target = torch.stack([i.gt_score for i in data_samples], dtype = torch.float)
         else:
-            target = torch.cat([i.gt_label for i in data_samples])
+            target = torch.cat([i.gt_label for i in data_samples], dtype = torch.float)
             
-        target /= self.num_scores
+        target /= (self.num_scores - 1)
         # compute loss
         losses = dict()
         loss = self.loss_module(
@@ -206,8 +206,8 @@ class ICNetHead128(BaseModule):
         """
         # The part can be traced by torch.fx
         cls_score = self(feats)
-        cly_map = cls_score[0]
-        cls_score = cls_score[1]
+        cly_map = cls_score[0] 
+        cls_score = cls_score[1] * (self.num_scores - 1) 
 
         # The part can not be traced by torch.fx
         predictions = self._get_predictions(cls_score, data_samples)
@@ -223,11 +223,10 @@ class ICNetHead128(BaseModule):
         if data_samples is None:
             data_samples = [None for _ in range(cls_scores.size(0))]
 
-        for data_sample, score, label in zip(data_samples, cls_scores,
-                                             pred_labels):
+        for data_sample, score, label in zip(data_samples, cls_scores):
             if data_sample is None:
                 data_sample = DataSample()
 
-            data_sample.set_pred_score(score).set_pred_label(label)
+            data_sample.set_pred_score(score)
             out_data_samples.append(data_sample)
         return out_data_samples
