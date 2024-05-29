@@ -15,6 +15,4 @@ class MAE(BaseMetric):
         self.results.append(result)
 
     def compute_metrics(self, results: List):
-    """ Compute the metrics from processed results and returns the evaluation results.
-    """
-        ...
+        pass
