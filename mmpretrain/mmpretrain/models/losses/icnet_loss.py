@@ -7,8 +7,7 @@ from mmpretrain.registry import MODELS
 @MODELS.register_module()
 class ICNetLoss(nn.Module):
 
-    def __init(self, 
-               map_weighting = 0.1):
+    def __init__(self, map_weighting = 0.1):
         super(ICNetLoss, self).__init__()
 
         self.map_weighting = map_weighting
