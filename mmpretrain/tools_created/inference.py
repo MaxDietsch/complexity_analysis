@@ -44,7 +44,7 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
         print(tensor.shape)
 
         label = int(label)
-        tup = model(tensor)
+        tup = model.model(tensor)
         cly_map = tup[0].squeeze()
         print(cly_map.shape) 
         new_path = os.path.join(output_dir, filename + '-' + str(label) + file_extension)
