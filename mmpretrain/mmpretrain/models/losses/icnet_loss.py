@@ -18,8 +18,8 @@ class ICNetLoss(nn.Module):
         score1 = cls_score[1].squeeze()
         score2 = cls_score[0].mean(axis = (1, 2, 3))
 
-        loss1 = self.loss_function(score1, label)
-        loss2 = self.loss_function(score2, label)
+        loss1 = self.loss_function(score1 * 9, label * 9)
+        loss2 = self.loss_function(score2 * 9, label * 9)
         loss = (1 - self.map_weighting) * loss1 + self.map_weighting * loss2
         return loss
          
