@@ -22,8 +22,6 @@ class ICNetMAE(BaseMetric):
 
         predictions = torch.cat([res['pred_score'] for res in results])
         targets = torch.cat([res['gt_label'] for res in results])
-        print(predictions.shape)
-        print(targets.shape)
 
 
         metrics['MAE'] = torch.mean(torch.abs(predictions - targets))
