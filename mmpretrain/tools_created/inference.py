@@ -9,7 +9,7 @@ import os
 
 # for classification of healthy or unhealthy
 model = 'icnet128'
-epoch = '12'
+epoch = '4'
 
 
 model_config = f'../tools/work_dirs/{model}/{model}.py'
