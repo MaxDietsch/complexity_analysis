@@ -178,7 +178,9 @@ class ICNetBackboneRes101Out128(BaseBackbone):
         self.norm_eval = norm_eval
         
         ## detail branch
-        print(list(resnet101Pretrained1.children()))
+        for i, x in enumerate(list(resnet101Pretrained1.children())):
+            print(i)
+            print(x)
         self.b1_1 = nn.Sequential(*list(resnet18Pretrained1.children())[:5])  
         self.b1_1_slam = slam(self.size_slam)
     
