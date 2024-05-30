@@ -259,7 +259,7 @@ class ICNetBackboneRes101Out128(BaseBackbone):
         return x_cat
 
     def train(self, mode = True):
-        super(ICNetBackboneRes18Out128, self).train(mode)
+        super(ICNetBackboneRes101Out128, self).train(mode)
         if mode and self.norm_eval:
             for m in self.modules():
                 # trick: eval have effect on BatchNorm only
@@ -267,4 +267,4 @@ class ICNetBackboneRes101Out128(BaseBackbone):
                     m.eval()
 
     def init_weights(self):
-        super(ICNetBackboneRes18Out128, self).init_weights()
+        super(ICNetBackboneRes101Out128, self).init_weights()
