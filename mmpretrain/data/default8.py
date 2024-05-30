@@ -10,7 +10,7 @@ data_preprocessor = dict(
 train_pipeline = [
             dict(type='LoadImageFromFile'),     # read image
             #dict(type = 'RandomFlip', prob = 0.5, direction=['horizontal', 'vertical']),
-            dict(type = 'ColorJitter', brightness = [0.75, 1.5], contrast = [0.75, 1.5], saturation = [0.75, 1.5], hue = 0.25, backend = 'pillow'),
+            #dict(type = 'ColorJitter', brightness = [0.75, 1.5], contrast = [0.75, 1.5], saturation = [0.75, 1.5], hue = 0.25, backend = 'pillow'),
             dict(type='Resize', scale=(1024, 1024), interpolation='bicubic'),
             dict(type='PackInputs'),         # prepare images and labels
         ]
@@ -22,7 +22,7 @@ test_pipeline = [
         ]
 
 train_dataloader = dict(
-            batch_size=8,
+            batch_size=4,
             num_workers=8,
             dataset=dict(
                 type=dataset_type,
@@ -37,7 +37,7 @@ train_dataloader = dict(
         )
 
 val_dataloader = dict(
-            batch_size=8,
+            batch_size=4,
             num_workers=8,
             dataset=dict(
                 type=dataset_type,
