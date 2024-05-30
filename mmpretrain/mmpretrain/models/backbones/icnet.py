@@ -184,7 +184,7 @@ class ICNetBackboneRes101Out128(BaseBackbone):
         self.b1_1 = nn.Sequential(*(list(resnet18Pretrained1.children())[:3] + list(resnet18Pretrained1.children())[4: 6]))  
         self.b1_1_slam = slam(self.size_slam)
     
-        self.b1_2 = list(resnet101Pretrained3.children())[5]
+        self.b1_2 = list(resnet18Pretrained3.children())[5]
         self.b1_2_slam = slam(self.size_slam)
 
         ## context branch
