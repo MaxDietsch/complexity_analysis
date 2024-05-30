@@ -170,8 +170,8 @@ class ICNetBackboneRes101Out128(BaseBackbone):
                  norm_eval = False):
 
         super(ICNetBackboneRes101Out128, self).__init__(init_cfg)
-        resnet101Pretrained1 = torchvision.models.resnet101(weights = ResNet18_Weights.IMAGENET1K_V1)
-        resnet101Pretrained2 = torchvision.models.resnet101(weights = ResNet18_Weights.IMAGENET1K_V1)
+        resnet101Pretrained1 = torchvision.models.resnet101(weights = ResNet101_Weights.IMAGENET1K_V1)
+        resnet101Pretrained2 = torchvision.models.resnet101(weights = ResNet101_Weights.IMAGENET1K_V1)
         
         self.image_size = image_size
         self.size_slam = size_slam
