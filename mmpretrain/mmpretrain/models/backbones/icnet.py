@@ -3,6 +3,7 @@ import torchvision
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision.models import ResNet18_Weights
+from torchvision.models import ResNet101_Weights
 
 from mmpretrain.registry import MODELS
 from .base_backbone import BaseBackbone
@@ -149,7 +150,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
 
     def train(self, mode = True):
         super(ICNetBackboneRes18Out128, self).train(mode)
-        if mode and self.norm_eval:
+        if mode and self.norm_eval:resnet101_pretrained = models.resnet101(weights=models.ResNet101_Weights.IMAGENET1K_V1)
             for m in self.modules():
                 # trick: eval have effect on BatchNorm only
                 if isinstance(m, _BatchNorm):
