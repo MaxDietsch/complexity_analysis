@@ -2,8 +2,7 @@ import torch
 import torchvision
 import torch.nn as nn
 import torch.nn.functional as F
-from torchvision.models import ResNet18_Weights
-from torchvision.models import ResNet101_Weights
+from torchvision.models import ResNet18_Weights, ResNet101_Weights
 
 from mmpretrain.registry import MODELS
 from .base_backbone import BaseBackbone
