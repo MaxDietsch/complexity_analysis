@@ -156,7 +156,8 @@ class ICNetBackboneRes18Out128(BaseBackbone):
                     m.eval()
 
     def init_weights(self):
-        super(ICNetBackboneRes18Out128, self).init_weights()
+        #super(ICNetBackboneRes18Out128, self).init_weights()
+        pass
 
 
 
