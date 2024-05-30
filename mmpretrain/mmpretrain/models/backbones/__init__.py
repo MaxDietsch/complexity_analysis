@@ -58,7 +58,7 @@ from .vision_transformer import VisionTransformer
 from .vit_eva02 import ViTEVA02
 from .vit_sam import ViTSAM
 from .xcit import XCiT
-from .icnet import ICNetBackboneRes18Out128
+from .icnet import ICNetBackboneRes18Out128, ICNetBackboneRes101Out128
 
 __all__ = [
     'LeNet5',
@@ -128,4 +128,5 @@ __all__ = [
     'SparseResNet',
     'SparseConvNeXt',
     'ICNetBackboneRes18Out128',
+    'ICNetBackboneRes101Out128'
 ]

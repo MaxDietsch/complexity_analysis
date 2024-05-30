@@ -1,6 +1,6 @@
 model = dict(
     type='ICNetRegressor',
-    backbone=dict(type='ICNetBackboneRes18Out128', image_size = 1024, size_slam = 128, norm_eval = False),
+    backbone=dict(type='ICNetBackboneRes101Out128', image_size = 1024, size_slam = 128, norm_eval = False),
     neck=None,
     head=dict(
         type='ICNetHead128',
