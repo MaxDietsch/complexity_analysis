@@ -170,10 +170,10 @@ class ICNetBackboneRes101Out128(BaseBackbone):
                  norm_eval = False):
 
         super(ICNetBackboneRes101Out128, self).__init__(init_cfg)
-        resnet101Pretrained1 = torchvision.models.resnet101(weights = ResNet101_Weights.IMAGENET1K_V1)
-        resnet101Pretrained2 = torchvision.models.resnet101(weights = ResNet101_Weights.IMAGENET1K_V1)
-        resnet101Pretrained3 = torchvision.models.resnet101(weights = ResNet101_Weights.IMAGENET1K_V1)
-        resnet101Pretrained4 = torchvision.models.resnet101(weights = ResNet101_Weights.IMAGENET1K_V1)
+        resnet18Pretrained1 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
+        resnet18Pretrained2 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
+        resnet18Pretrained3 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
+        resnet18Pretrained4 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
 
         self.image_size = image_size
         self.size_slam = size_slam
@@ -181,23 +181,23 @@ class ICNetBackboneRes101Out128(BaseBackbone):
         
         ## detail branch
 
-        self.b1_1 = nn.Sequential(*(list(resnet101Pretrained1.children())[:3] + list(resnet101Pretrained1.children())[4: 6]))  
+        self.b1_1 = nn.Sequential(*(list(resnet18Pretrained1.children())[:3] + list(resnet18Pretrained1.children())[4: 6]))  
         self.b1_1_slam = slam(self.size_slam)
     
         self.b1_2 = list(resnet101Pretrained3.children())[5]
         self.b1_2_slam = slam(self.size_slam)
 
         ## context branch
-        self.b2_1 = nn.Sequential(*(list(resnet101Pretrained2.children())[:3] + list(resnet101Pretrained2.children())[4: 6]))  
+        self.b2_1 = nn.Sequential(*(list(resnet18Pretrained2.children())[:3] + list(resnet18Pretrained2.children())[4: 6]))  
         self.b2_1_slam = slam(self.size_slam)
         
-        self.b2_2 = list(resnet101Pretrained2.children())[5]
+        self.b2_2 = list(resnet18Pretrained2.children())[5]
         self.b2_2_slam = slam(self.size_slam)
     
-        self.b2_3 = list(resnet101Pretrained4.children())[5]
+        self.b2_3 = list(resnet18Pretrained4.children())[5]
         self.b2_3_slam = slam(self.size_slam // 2)
         
-        self.b2_4 = list(resnet101Pretrained2.children())[7]
+        self.b2_4 = list(resnet18Pretrained2.children())[7]
         self.b2_4_slam = slam(self.size_slam // 4)
 
         ## upsample
