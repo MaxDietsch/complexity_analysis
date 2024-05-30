@@ -149,7 +149,7 @@ class ICNetBackboneRes18Out128(BaseBackbone):
 
     def train(self, mode = True):
         super(ICNetBackboneRes18Out128, self).train(mode)
-        if mode and self.norm_eval:resnet101_pretrained = models.resnet101(weights=models.ResNet101_Weights.IMAGENET1K_V1)
+        if mode and self.norm_eval:
             for m in self.modules():
                 # trick: eval have effect on BatchNorm only
                 if isinstance(m, _BatchNorm):
