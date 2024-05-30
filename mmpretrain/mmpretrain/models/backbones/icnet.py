@@ -171,7 +171,7 @@ class ICNetBackboneRes101Out128(BaseBackbone):
 
         super(ICNetBackboneRes101Out128, self).__init__(init_cfg)
         resnet101Pretrained1 = torchvision.models.resnet101(weights = ResNet101_Weights.IMAGENET1K_V1)
-        resnet101Pretrained2 = torchvision.models.resnet101(weights = ResNet101_Weights.IMAGENET1K_V1)
+        resnet18Pretrained2 = torchvision.models.resnet18(weights = ResNet18_Weights.IMAGENET1K_V1)
         
         self.image_size = image_size
         self.size_slam = size_slam
@@ -181,6 +181,12 @@ class ICNetBackboneRes101Out128(BaseBackbone):
         for i, x in enumerate(list(resnet101Pretrained1.children())):
             print(i)
             print(x)
+
+        for i, x in enumerate(list(resnet18Pretrained2.children())):
+            print(i)
+            print(x)
+
+
         self.b1_1 = nn.Sequential(*list(resnet18Pretrained1.children())[:5])  
         self.b1_1_slam = slam(self.size_slam)
     
