@@ -213,48 +213,48 @@ class ICNetBackboneRes101Out128(BaseBackbone):
         # detail branch
         x1 = self.b1_1(x1) #(b, 64, 256, 256)
         
-        #print(x1.shape)
+        print(x1.shape)
         x1 = self.b1_1_slam(x1) #(b, 64, 256, 256)
-        #print(x1.shape)
+        print(x1.shape)
 
         x1 = self.b1_2(x1) #(b, 128, 128, 128)
-        #print(x1.shape)
+        print(x1.shape)
      
         x1 = self.b1_2_slam(x1) #(b, 128, 128, 128)
         
         # context branch
         x2 = self.b2_1(x2) #(b, 64, 128, 128)
-        #print(x2.shape)
+        print(x2.shape)
         
         x2 = self.b2_1_slam(x2) #(b, 64, 128, 128)
-        #print(x2.shape)
+        print(x2.shape)
 
         x2 = self.b2_2(x2) #(b, 128, 64, 64)
-        #print(x2.shape)
+        print(x2.shape)
        
         x2 = self.b2_2_slam(x2) #(b, 128, 64, 64)
-        #print(x2.shape)
+        print(x2.shape)
 
         x2 = self.b2_3(x2) #(b, 256, 32, 32)
-        #print(x2.shape)
+        print(x2.shape)
 
         x2 = self.b2_3_slam(x2) #(b, 256, 32, 32)
-        #print(x2.shape)
+        print(x2.shape)
         
         x2 = self.b2_4(x2) #(b, 512, 16, 16)
-        #print(x2.shape)
+        print(x2.shape)
         
         x2 = self.b2_4_slam(x2) #(b, 512, 16, 16)
-        #print(x2.shape)
+        print(x2.shape)
 
         x1 = self.up1(x1) #(b, 256, 128, 128)
-        #print(x1.shape)
+        print(x1.shape)
 
         x2 = self.up2(x2) #(b, 256, 128, 128)
-        #print(x2.shape)
+        print(x2.shape)
 
         x_cat = torch.cat((x1, x2), dim = 1) #(b, 512, 128, 128)
-        #print(x_cat.shape)
+        print(x_cat.shape)
 
         return x_cat
 
