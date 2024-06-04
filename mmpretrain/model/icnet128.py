@@ -4,7 +4,7 @@ model = dict(
     neck=None,
     head=dict(
         type='ICNetHead128',
-        loss=dict(type='ICNetLoss', map_weighting = 0.5),
+        loss=dict(type='ICNetLoss', map_weighting = 0.7),
         num_scores = 10,
     ))
 
