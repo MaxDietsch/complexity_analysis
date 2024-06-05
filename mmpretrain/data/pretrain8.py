@@ -2,8 +2,8 @@
 dataset_type = 'CustomDataset'
 data_preprocessor = dict(
             # Input image data channels in 'RGB' order
-                mean=[173.10, 175.12, 177.00],
-                    std=[94.64, 89.89, 89.64],
+                mean=[135.39, 109.55, 102.62],
+                    std=[76.27, 74.48, 77.86],
                         to_rgb=True,
         )
 
