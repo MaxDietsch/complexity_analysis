@@ -4,8 +4,8 @@ model = dict(
     neck=None,
     head=dict(
         type='ICNetHead128',
-        loss=dict(type='ICNetLoss', num_scores = 10, map_weighting = 0.5),
-        num_scores = 10,
+        loss=dict(type='ICNetLoss', num_scores = 5, map_weighting = 0.5),
+        num_scores = 5,
     ))
 
 
