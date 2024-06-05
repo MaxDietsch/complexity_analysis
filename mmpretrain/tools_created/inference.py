@@ -10,10 +10,11 @@ import os
 # for classification of healthy or unhealthy
 model = 'icnet128'
 epoch = '250'
+weight = 0.3
 
 
-model_config = f'../tools/work_dirs/{model}/{model}.py'
-model_pretrained = f'../tools/work_dirs/{model}/epoch_{epoch}.pth'
+model_config = f'../config/{model}.py'
+model_pretrained = f'../work-dir/w_{weight}/epoch_{epoch}.pth'
 output_dir = '../../plain_torch/output_images'
 image_size = (1024, 1024)
 
@@ -31,6 +32,7 @@ transform = transforms.Compose([
 
 
 with open("../../../dataset_default/meta/test.txt", "r") as file:
+    i = 0
     for line in file:
         path, label = line.strip().split(" ", 1)
         filename = os.path.basename(path)
@@ -56,6 +58,10 @@ with open("../../../dataset_default/meta/test.txt", "r") as file:
         image = image.convert('L')
         image = image.resize((width, height))
         image.save(new_path)
+
+        i += 1 
+        if i == 171:
+            break
 
 
 
