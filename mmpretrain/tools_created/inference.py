@@ -10,7 +10,7 @@ import os
 # for classification of healthy or unhealthy
 model = 'icnet128'
 epoch = '250'
-weight = 0.3
+weight = 0.5
 
 
 model_config = f'../config/{model}.py'
