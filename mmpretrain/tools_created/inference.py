@@ -14,7 +14,7 @@ weight = 0.9
 
 
 model_config = f'../config/{model}.py'
-model_pretrained = f'../work-dir/w_{weight}/epoch_{epoch}.pth'
+model_pretrained = f'../work-dir/pretrain_w{weight}/epoch_{epoch}.pth'
 output_dir = '../../plain_torch/output_images'
 image_size = (1024, 1024)
 
