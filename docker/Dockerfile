@@ -21,24 +21,15 @@ RUN pip install openmim
 
 # Install MMPretrain
 RUN conda clean --all
-RUN git clone https://github.com/open-mmlab/mmpretrain.git
+RUN git clone https://github.com/MaxDietsch/complexity_analysis.git
 
-WORKDIR /mmpretrain
+WORKDIR ./complexity_analysis 
 RUN mim install --no-cache-dir -e .
 
-# Copy the inference script and any other necessary files
-COPY ../data mmpretrain/data
-COPY ../runtime mmpretrain/runtime
-COPY ../schedule mmpretrain/schedule
-COPY ../model mmpretrain/model
-COPY ../weights /mmpretrain/weights
-COPY ../tools_created /mmpretrain/tools_created
-COPY ../config mmpretrain/config
+COPY ../weights ./weights
 
 # Run the inference script with the specified path parameter
-CMD ["python", "/mmpretrain/tools_created/inference_light.py", "/path/to/your/image"]
+WORKDIR ./tools_created
+ENTRYPOINT ["python", "inference_light.py"]
 
-# To keep the container running after executing the script, you can add a tail command
-# This is useful for debugging or if you need the container to stay alive for some reason
-# CMD ["sh", "-c", "python /mmpretrain/tools_created/inference_light.py /path/to/your/image && tail -f /dev/null"]
 
